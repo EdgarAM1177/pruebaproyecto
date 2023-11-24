@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asignación de Lockers</title>
+    <style>
+        /* Tu estilo actual... */
+    </style>
+</head>
+<body>
+    <div id="top-bar">
+        <img src="ORIGINAL.png" alt="Logo">
+    </div>
+    <div id="asignacion-container">
+        <div id="asignacion-box">
+            <h2>Asignación de Lockers</h2>
+            <form action="procesar_asignacion.php" method="post" id="asignacionForm">
+                <label for="num_locker">Número de Locker:</label>
+                <select name="num_locker" id="num_locker" required>
+                    <!-- Opciones de lockers se llenarán dinámicamente con JavaScript -->
+                </select>
+                <br>
+                <label for="matricula">Matrícula del Usuario:</label>
+                <select name="matricula" id="matricula" required>
+                    <!-- Opciones de usuarios se llenarán dinámicamente con JavaScript -->
+                </select>
+                <br>
+                <label for="fecha_inicio">Fecha de Inicio:</label>
+                <input type="date" name="fecha_inicio" required>
+                <br>
+                <label for="fecha_fin">Fecha de Fin:</label>
+                <input type="date" name="fecha_fin" required>
+                <br>
+                <input type="submit" value="Asignar Locker">
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Función para cargar dinámicamente las opciones de lockers y usuarios
+        function cargarOpciones() {
+            // Obtener las opciones de lockers desde PHP
+            fetch('procesar_asignacion.php?opciones=lockers')
+                .then(response => response.json())
+                .then(data => {
+                    var numLockerSelect = document.getElementById('num_locker');
+
+                    // Limpiar opciones actuales
+                    numLockerSelect.innerHTML = '';
+
+                    // Llenar opciones de lockers
+                    data.lockers.forEach(function (numLocker) {
+                        var option = document.createElement('option');
+                        option.value = numLocker;
+                        option.textContent = numLocker;
+                        numLockerSelect.appendChild(option);
+                    });
+                });
+
+            // Obtener las opciones de usuarios desde PHP
+            fetch('procesar_asignacion.php?opciones=usuarios')
+                .then(response => response.json())
+                .then(data => {
+                    var matriculaSelect = document.getElementById('matricula');
+
+                    // Limpiar opciones actuales
+                    matriculaSelect.innerHTML = '';
+
+                    // Llenar opciones de usuarios
+                    data.usuarios.forEach(function (matricula) {
+                        var option = document.createElement('option');
+                        option.value = matricula;
+                        option.textContent = matricula;
+                        matriculaSelect.appendChild(option);
+                    });
+                });
+        }
+
+        // Llamar a la función cuando el documento esté completamente cargado
+        document.addEventListener('DOMContentLoaded', cargarOpciones);
+    </script>
+</body>
+</html>

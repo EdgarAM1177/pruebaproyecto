@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Locker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+
+        form {
+            display: inline-block;
+            text-align: left;
+        }
+
+        input, select {
+            margin-bottom: 10px;
+            padding: 8px;
+        }
+
+        #buttonContainer {
+            text-align: center;
+            margin-top: 10px; /* Ajusta el espacio entre el formulario y los botones */
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4caf50; /* Color verde */
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Estilo para el mensaje de respuesta */
+        #responseMessage {
+            margin-top: 20px;
+            padding: 10px;
+            display: none;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h2>Registro de Locker</h2>
+
+    <form id="registrationForm">
+        <label for="numlock">Número del Locker:</label>
+        <input type="number" name="numlock" required>
+
+        <br>
+
+        <label for="ubicacion">Ubicación del Locker:</label>
+        <input type="text" name="ubicacion" required>
+
+        <br>
+
+        <label for="tipo">Tipo de Locker:</label>
+        <input type="text" name="tipo" required>
+
+        <br>
+
+        <label for="precio">Precio de Renta del Locker:</label>
+        <input type="text" name="precio" required>
+
+        <br>
+
+        <div id="buttonContainer">
+            <button type="button" onclick="submitForm()">Registrar</button>
+
+            <!-- Botón para regresar a index_admin -->
+            <button type="button" onclick="window.location.href='index_admin.html'" style="background-color: red; color: white;">Regresar</button>
+        </div>
+    </form>
+
+    <!-- Mensaje de respuesta -->
+    <div id="responseMessage"></div>
+
+    <script>
+        function submitForm() {
+            var form = document.getElementById('registrationForm');
+
+            // Simulación de envío de datos al servidor usando fetch o XMLHttpRequest.
+            fetch('procesar_registro.php', {
+                method: 'POST',
+                body: new FormData(form)
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Mostrar el mensaje según la respuesta del servidor
+                showResponseMessage(data.message, data.success);
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function showResponseMessage(message, isSuccess) {
+            var responseMessage = document.getElementById('responseMessage');
+            responseMessage.innerHTML = message;
+
+            // Agregar clase de estilo según el tipo de mensaje (éxito o error)
+            if (isSuccess) {
+                responseMessage.classList.add('success');
+            } else {
+                responseMessage.classList.add('error');
+            }
+
+            responseMessage.style.display = 'block';
+
+            // Ocultar el mensaje después de 3 segundos (puedes ajustar el tiempo según tus necesidades)
+            setTimeout(function() {
+                responseMessage.style.display = 'none';
+                responseMessage.classList.remove('success', 'error');
+            }, 3000);
+        }
+
+        // Agregar evento de tecla para el formulario
+        document.getElementById('registrationForm').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                // Prevenir el comportamiento predeterminado del Enter (enviar formulario)
+                event.preventDefault();
+
+                // Llamar a la función submitForm al presionar Enter
+                submitForm();
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+

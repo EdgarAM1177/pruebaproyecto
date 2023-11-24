@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Locker Manager Web</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: url('fondo.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    #container {
+      background: #fff;
+      margin: 20px;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+
+    #logo {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      max-width: 200px;
+      max-height: 200px;
+    }
+
+    input, select, button {
+      margin-bottom: 10px;
+      padding: 8px;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <img id="logo" src="ORIGINAL.png" alt="Logo">
+
+    <h1>Locker Manager Web</h1>
+
+    <div>
+      <label for="action">¿Qué acción desea realizar?</label>
+      <select id="action">
+        <option value="1">Registrar Locker</option>
+        <option value="2">Registrar Usuario</option>
+        <option value="3">Asignar Locker</option>
+        <option value="4">Modificar Datos</option>
+        <option value="5">Eliminar Registro</option>
+        <option value="6">Visualizar Registros</option>
+      </select>
+    </div>
+
+    <button onclick="performAction()">Realizar Acción</button>
+
+    
+
+    <script>
+      function performAction() {
+        var action = document.getElementById('action').value;
+
+        if (action === '1') {
+          window.location.href = 'index_registro.html';
+        } else if (action === '2') {
+          window.location.href = 'index_registrous.html';
+        } else if (action === '3') {
+          window.location.href = 'index_asignacion.html';
+        } else if (action === '4') {
+          
+        } else if (action === '5') {
+          
+        } else if (action === '6') {
+          window.location.href = 'index_visualizar.html'
+        } else {
+          alert('Acción realizada (solo un marcador de posición, implementa la lógica real)');
+        }
+      }
+    </script>
+  </div>
+
+
+</body>
+</html>

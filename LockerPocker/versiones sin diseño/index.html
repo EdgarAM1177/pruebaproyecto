@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        /* Tu estilo actual... */
+    </style>
+</head>
+<body>
+    <div id="top-bar">
+        <img src="ORIGINAL.png" alt="Logo">
+    </div>
+    <div id="login-container">
+        <div id="login-box">
+            <h2>Login</h2>
+            <form action="login.php" method="post" id="loginForm">
+                <label for="username">Nombre de usuario:</label>
+                <input type="text" name="username" required>
+                <br>
+                <label for="password">Contraseña:</label>
+                <input type="password" name="password" required>
+                <br>
+                <input type="submit" value="Iniciar sesión">
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Obtener los valores de usuario y contraseña
+            var username = document.getElementsByName('username')[0].value;
+            var password = document.getElementsByName('password')[0].value;
+
+            // Enviar los datos al servidor usando AJAX (opcional)
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'login.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    // Manejar la respuesta del servidor si es necesario
+                    var response = xhr.responseText;
+                    if (response === 'admin') {
+                        window.location.href = 'index_admin.html';
+                    } else if (response === 'usuario') {
+                        window.location.href = 'index_us.html';
+                    } else {
+                        alert('Usuario o contraseña incorrectos');
+                    }
+                }
+            };
+            xhr.send('username=' + username + '&password=' + password);
+        });
+    </script>
+</body>
+</html>
+
